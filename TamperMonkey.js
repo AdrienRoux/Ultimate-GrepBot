@@ -23,8 +23,8 @@
     link.type = 'text/css';
     link.rel = 'stylesheet';
 
-    script.src = 'https://cdn.jsdelivr.net/gh/AdrienRoux/Ultimate-GrepBot@main/GrepBot.js';
-    link.href = 'https://cdn.jsdelivr.net/gh/AdrienRoux/Ultimate-GrepBot@main/GrepBotStyle.css';
+    script.src = 'https://cdn.jsdelivr.net/gh/AdrienRoux/Ultimate-GrepBot/GrepBot.js';
+    link.href = 'https://cdn.jsdelivr.net/gh/AdrienRoux/Ultimate-GrepBot/GrepBotStyle.css';
 
     head.appendChild(script);
     head.appendChild(link);
