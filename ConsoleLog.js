@@ -47,11 +47,7 @@ ConsoleLog = {
         clearInterval(this['scrollInterval']);
         var _0x7a76xc = $('.terminal');
         var _0x7a76x2 = $('.terminal-output');
-        if (_0x7a76xc['scrollTop']() + _0x7a76xc['height']() == _0x7a76x2['height']()) {
-            this['scrollUpdate'] = true
-        } else {
-            this['scrollUpdate'] = false
-        }
+        this['scrollUpdate'] = _0x7a76xc['scrollTop']() + _0x7a76xc['height']() === _0x7a76x2['height']();
         var _0x7a76xd = _0x7a76x2[0]['scrollHeight'];
         this['scrollInterval'] = setInterval(function() {
             _0x7a76xc['scrollTop'](_0x7a76xd)
