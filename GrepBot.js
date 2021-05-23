@@ -139,7 +139,7 @@ var Autobot = {
         }
     },
     contentAccount: function () {
-        var accountInfo = { "Name:": Game["player_name"], "World:": Game["world_id"], "Rank:": Game["player_rank"], "Towns:": Game["player_villages"], "Language:": Game["locale_lang"], "Premium: ": "[ CRACKED ]" };
+        var accountInfo = { "Name:": Game["player_name"], "World:": Game["world_id"], "Rank:": Game["player_rank"], "Towns:": Game["player_villages"], "Language:": Game["locale_lang"], "Premium: ": "∞" };
         var _0x88b7xa = $("<table/>", { class: "game_table layout_main_sprite", cellspacing: "0", width: "100%" })["append"](function () {
             var _0x88b7xb = 0;
             var _0x88b7xc = $("<tbody/>");
