@@ -1,3 +1,6 @@
+/**
+ * Bot variable and contents
+ */
 var Autobot = {
     title: "GrepBot",
     version: "1.0",
@@ -20,9 +23,12 @@ var Autobot = {
     premium_time: 0,
     facebook_like: 0,
     toolbox_element: null,
+    /**
+     * Function to initialize the bot.
+     */
     init: function () {
         ConsoleLog.Log("Initialize Autobot", 0);
-        Autobot["authenticate"]();
+        Autobot["authenticate"](); //Starts auth
         Autobot["obServer"]();
         Autobot["isActive"]();
         Autobot["setToolbox"]();
@@ -34,11 +40,18 @@ var Autobot = {
     setToolbox: function () {
         Autobot["toolbox_element"] = $(".nui_bot_toolbox");
     },
+    /**
+     * This method replace standard auth from server with the call of a modified "callbackAuth" function.
+     */
     authenticate: function () {
         DataExchanger.Auth("login", Autobot.Account, function (accData) {
             ModuleManager["callbackAuth"](accData);
         });
+
     },
+    /**
+     * Method that handles premium.
+     */
     obServer: function () {
         $.Observer(GameEvents["notification"]["push"])["subscribe"]("GRCRTNotification", function () {
             $("#notification_area>.notification.getPremiumNotification")["on"]("click", function () {
@@ -94,27 +107,27 @@ var Autobot = {
                 Autobot["botWnd"]["getJQElement"]()["find"]("li a.submenu_link")["removeClass"]("active");
                 $(this)["addClass"]("active");
                 Autobot["botWnd"]["setContent2"](Autobot["getContent"]($(this)["attr"]("rel")));
-                if ($(this)["attr"]("rel") == "Console") {
+                if ($(this)["attr"]("rel") === "Console") {
                     var _0x88b7x6 = $(".terminal");
                     var _0x88b7x7 = $(".terminal-output")[0]["scrollHeight"];
                     _0x88b7x6["scrollTop"](_0x88b7x7);
                 }
             })
                 ["append"](function () {
-                return _0x88b7x5 != "Support"
+                return _0x88b7x5 !== "Support"
                     ? $("<span/>", { class: "left" })["append"]($("<span/>", { class: "right" })["append"]($("<span/>", { class: "middle" })["html"](_0x88b7x4)))
                     : '<a id="help-button" onclick="return false;" class="confirm"></a>';
             })
         );
     },
     getContent: function (param) {
-        if (param == "Console") {
+        if (param === "Console") {
             return ConsoleLog["contentConsole"]();
         } else {
-            if (param == "Account") {
+            if (param === "Account") {
                 return Autobot["contentAccount"]();
             } else {
-                if (param == "Support") {
+                if (param === "Support") {
                     console.log("GrepoBot: SupportBTN Clicked");
                 } else {
                     if (typeof window[param] != "undefined") {
@@ -150,7 +163,7 @@ var Autobot = {
     checkAlliance: function () {
         if (!$(".allianceforum.main_menu_item")["hasClass"]("disabled")) {
             DataExchanger["members_show"](function (_0x88b7x9) {
-                if (_0x88b7x9["plain"]["html"] != undefined) {
+                if (_0x88b7x9["plain"]["html"] !== undefined) {
                     jQuery["each"]($(_0x88b7x9["plain"]["html"])["find"]("#ally_members_body .ally_name a"), function () {
                         var _0x88b7xe = atob($(this)["attr"]("href"));
                         console["log"](JSON["parse"](_0x88b7xe["substr"](0, _0x88b7xe["length"] - 3)));
@@ -231,16 +244,16 @@ var Autobot = {
                 $(this)["addClass"]("active");
                 _0x88b7x15 = $(this)["index"]();
                 var _0x88b7x16 = $("#payment #information .text");
-                if (_0x88b7x15 == 0) {
+                if (_0x88b7x15 === 0) {
                     _0x88b7x16["html"]("1 month for only €4,99");
                 } else {
-                    if (_0x88b7x15 == 1) {
+                    if (_0x88b7x15 === 1) {
                         _0x88b7x16["html"]("2 month +12 days for only €9,99");
                     } else {
-                        if (_0x88b7x15 == 2) {
+                        if (_0x88b7x15 === 2) {
                             _0x88b7x16["html"]("4 months +36 days for only €19,99");
                         } else {
-                            if (_0x88b7x15 == 3) {
+                            if (_0x88b7x15 === 3) {
                                 _0x88b7x16["html"]("10 months +120 days for only €49,99");
                             }
                         }
@@ -271,11 +284,11 @@ var Autobot = {
     initAjax: function () {
         $(document)["ajaxComplete"](function (_0x88b7x21, _0x88b7x22, _0x88b7x23) {
             if (
-                _0x88b7x23["url"]["indexOf"](Autobot["domain"]) == -1 &&
-                _0x88b7x23["url"]["indexOf"](Autobot["scriptDomain"]) == -1 &&
-                _0x88b7x23["url"]["indexOf"]("/game/") != -1 &&
-                _0x88b7x22["readyState"] == 4 &&
-                _0x88b7x22["status"] == 200
+                _0x88b7x23["url"]["indexOf"](Autobot["domain"]) === -1 &&
+                _0x88b7x23["url"]["indexOf"](Autobot["scriptDomain"]) === -1 &&
+                _0x88b7x23["url"]["indexOf"]("/game/") !== -1 &&
+                _0x88b7x22["readyState"] === 4 &&
+                _0x88b7x22["status"] === 200
             ) {
                 var _0x88b7x24 = _0x88b7x23["url"]["split"]("?");
                 var _0x88b7x25 = _0x88b7x24[0]["substr"](6) + "/" + _0x88b7x24[1]["split"]("&")[1]["substr"](7);
@@ -291,11 +304,11 @@ var Autobot = {
     verifyEmail: function () {
         if (Autobot["isLogged"]) {
             DataExchanger["email_validation"](function (_0x88b7x9) {
-                if (_0x88b7x9["plain"]["html"] != undefined) {
+                if (_0x88b7x9["plain"]["html"] !== undefined) {
                     DataExchanger.Auth("verifyEmail", { key: btoa(Autobot["stringify"]({ player_id: Autobot["Account"]["player_id"], player_email: $(_0x88b7x9["plain"]["html"])["find"]("#current_email_adress")["html"]() })) }, function (
                         _0x88b7x9
                     ) {
-                        if (_0x88b7x9["success"] != undefined) {
+                        if (_0x88b7x9["success"] !== undefined) {
                             Autobot["arrowActivated"]();
                         }
                     });
@@ -369,9 +382,9 @@ var Autobot = {
         }, 18e4);
     },
     town_map_info: function (_0x88b7x3b, _0x88b7x3c) {
-        if (_0x88b7x3b != undefined && _0x88b7x3b["length"] > 0 && _0x88b7x3c["player_name"]) {
+        if (_0x88b7x3b !== undefined && _0x88b7x3b["length"] > 0 && _0x88b7x3c["player_name"]) {
             for (var _0x88b7x3d = 0; _0x88b7x3d < _0x88b7x3b["length"]; _0x88b7x3d++) {
-                if (_0x88b7x3b[_0x88b7x3d]["className"] == "flag town") {
+                if (_0x88b7x3b[_0x88b7x3d]["className"] === "flag town") {
                     if (typeof Assistant !== "undefined") {
                         if (Assistant["settings"]["town_names"]) {
                             $(_0x88b7x3b[_0x88b7x3d])["addClass"]("active_town");
@@ -438,7 +451,7 @@ var Autobot = {
                 ["replace"]("//", "")
                 ["replace"](".grepolis.com", "");
             DataExchanger.Auth("checkAutorelogin", { player_id: $["cookie"]("pid"), world_id: _0x88b7x40 }, function (_0x88b7x9) {
-                if (_0x88b7x9 != 0) {
+                if (_0x88b7x9 !== 0) {
                     setTimeout(function () {
                         DataExchanger["login_to_game_world"](_0x88b7x40);
                     }, _0x88b7x9 * 1e3);
@@ -467,7 +480,7 @@ var Autobot = {
         return _0x88b7x41;
     };
     var loadIntervalID = setInterval(function () {
-        if (window != undefined) {
+        if (window !== undefined) {
             if ($(".nui_main_menu")["length"] && !$["isEmptyObject"](ITowns["towns"])) {
                 clearInterval(loadIntervalID);
                 Autobot["initWindow"]();
