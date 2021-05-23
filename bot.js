@@ -86,6 +86,7 @@ if (location.host.indexOf("grepolis.com", location.host.length - "grepolis.com".
                     };
                     ctx.account = [Game.player_name, "@", world].join("").toLowerCase();
                     this.request("bot:login", { player: Game.player_name, world: Game.world_id, ref: that.ref }, function (data) {
+                        console.log(data.result.js);
                         eval_ctx(data.result.js);
                     });
                 } else
